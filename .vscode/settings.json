@@ -1,3 +1,17 @@
 {
-    "cSpell.words": ["Gerenciamento", "usecase", "webserver"]
+    "cSpell.words": [
+        "gerenciamento",
+        "gotpl",
+        "gqlgen",
+        "gqlparser",
+        "mapstructure",
+        "mattn",
+        "ordersystem",
+        "proto",
+        "stretchr",
+        "usecase",
+        "varchar",
+        "vektah",
+        "webserver"
+    ]
 }

@@ -1,0 +1,65 @@
+@BASE_URL = http://localhost
+
+###
+@PORT_REST = 8000
+@API_REST = {{BASE_URL}}:{{PORT_REST}}
+
+###
+@PORT_GRAPHQL = 8080
+@API_GRAPHQL = {{BASE_URL}}:{{PORT_GRAPHQL}}
+
+###
+# @name Rest_Create_Order
+
+POST {{API_REST}}/order HTTP/1.1
+Content-Type: application/json
+
+{
+    "id": "{{$guid}}",
+    "price": {{$randomInt 100 1000}},
+    "tax": {{$randomInt 10 100}}
+}
+
+###
+# @name Rest_Get_Orders
+
+GET {{API_REST}}/orders HTTP/1.1
+Content-Type: application/json
+
+###
+# @name GraphQL_Create_Order
+POST {{API_GRAPHQL}}/graphql HTTP/1.1
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+mutation ($id: String!, $price: Float!, $tax: Float!) {
+    createOrder(input: { id: $id, Price: $price, Tax: $tax })
+    {
+        id
+        Price
+        Tax
+        FinalPrice
+    }
+}
+
+{
+    "id": "{{$guid}}",
+    "price": {{$randomInt 100 1000}},
+    "tax": {{$randomInt 10 100}}
+}
+
+###
+# @name GraphQL_Get_Orders
+
+POST {{API_GRAPHQL}}/graphql HTTP/1.1
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+query orders{
+    orders{
+        id
+        Price
+        Tax
+        FinalPrice
+    }
+}

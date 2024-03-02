@@ -39,3 +39,19 @@ CREATE TABLE orders (
 ```
 
 Finalmente, para iniciar o projeto, execute o comando `go run main.go wire_gen.go` a partir da pasta `./cmd/ordersystem`
+
+## Portas
+
+Por padrão, o projeto utiliza as seguintes portas:
+
+- web server na porta 8000
+- gRPC server na porta 50051
+- GraphQL server na porta 8080
+
+> Essas portas podem ser ajustas no arquivo `cmd/ordersystem/.env`
+
+## Extras
+
+Para testar as chamadas REST ou GrahpQL, pode se usar a extensão REST Client no VSCode e utilizar as chamadas descritas no arquivo `api/ordersystem.http`
+
+Para testar gRPC pode se utilizar o [Evans](https://github.com/ktr0731/evans) (instalando localmente) ou [grpcui](https://github.com/fullstorydev/grpcui) (rodando o repositorio go localmente)
