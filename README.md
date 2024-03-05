@@ -26,19 +26,9 @@ Os seguintes serviços serão executados:
 
 > O serviço [webDB](https://webdb.app/) é opcional pois se trata de um  Sistema de Gerenciamento de Banco de Dados.
 
-Antes de começar a aplicação, lembre de criar a tabela no banco de dados, utilizando por exemplo a _sql query_:
-
-```sql
-CREATE TABLE orders (
-    id varchar(255) NOT NULL,
-    price float NOT NULL,
-    tax float NOT NULL,
-    final_price float NOT NULL,
-    PRIMARY KEY (id)
-)
-```
-
 Finalmente, para iniciar o projeto, execute o comando `go run main.go wire_gen.go` a partir da pasta `./cmd/ordersystem`
+
+> O banco de dados será configurado por migrações automaticas no início da aplicação.
 
 ## Portas
 

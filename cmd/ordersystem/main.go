@@ -21,6 +21,7 @@ import (
 
 	// mysql
 	_ "github.com/go-sql-driver/mysql"
+	migrate "github.com/rubenv/sql-migrate"
 )
 
 func main() {
@@ -29,11 +30,27 @@ func main() {
 		panic(err)
 	}
 
-	db, err := sql.Open(configs.DBDriver, fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", configs.DBUser, configs.DBPassword, configs.DBHost, configs.DBPort, configs.DBName))
+	db, err := sql.Open(configs.DBDriver, fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true", configs.DBUser, configs.DBPassword, configs.DBHost, configs.DBPort, configs.DBName))
 	if err != nil {
 		panic(err)
 	}
 	defer db.Close()
+
+	migrations := &migrate.MemoryMigrationSource{
+		Migrations: []*migrate.Migration{
+			{
+				Id:   "1",
+				Up:   []string{"CREATE TABLE orders (id varchar(255) NOT NULL,price float NOT NULL,tax float NOT NULL,final_price float NOT NULL,PRIMARY KEY (id))"},
+				Down: []string{"DROP TABLE orders"},
+			},
+		},
+	}
+
+	n, err := migrate.Exec(db, "mysql", migrations, migrate.Up)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Printf("Applied %d migrations!\n", n)
 
 	rabbitMQChannel := getRabbitMQChannel()
 
